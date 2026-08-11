@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="theme-color" content="#070708"/>
+<title>Life Maker · Collect (PayTo)</title>
+<style>
+:root{--bg:#070708;--elev:#111114;--elev2:#16161a;--subtle:#1c1c21;--fg:#f7f7f8;--muted:#a8a8b3;--faint:#6e6e78;--border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.14);--gold:#e8d5a3;--gold-dim:#b8a06a;--ok:#5ee9a0;--ok-dim:rgba(94,233,160,.12);--danger:#ff7a7a;--warn:#f0c674;--font:"Segoe UI",system-ui,sans-serif;--safe-b:env(safe-area-inset-bottom,0px);--safe-t:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;min-height:100dvh;color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.5;background:radial-gradient(1000px 500px at 50% -8%,rgba(94,233,160,.07),transparent 55%),var(--bg);-webkit-font-smoothing:antialiased}
+a{color:var(--gold);text-decoration:none}button{font-family:inherit;cursor:pointer}
+.wrap{max-width:440px;margin:0 auto;padding:calc(var(--safe-t)+1.1rem) 1.1rem calc(var(--safe-b)+2rem)}
+header{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.25rem}
+.brand{display:flex;align-items:center;gap:.65rem}
+.mark{width:40px;height:40px;border-radius:12px;border:1px solid var(--border);background:linear-gradient(145deg,#1c1c20,#0e0e10);display:grid;place-items:center;color:var(--ok);font-weight:700;font-size:11px}
+h1{margin:0;font-size:1.05rem;font-weight:600;letter-spacing:-.02em}
+.sub{margin:0;font-size:.68rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+.nav a{font-size:.78rem;color:var(--muted);margin-left:.55rem}
+.hero{border:1px solid var(--border);border-radius:20px;padding:1.35rem 1.2rem;background:linear-gradient(160deg,rgba(94,233,160,.08),transparent 55%),linear-gradient(180deg,#141417,#0e0e11);margin-bottom:1.1rem;box-shadow:0 18px 40px rgba(0,0,0,.28)}
+.label{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:.3rem}
+.balance{font-size:2.1rem;font-weight:600;letter-spacing:-.04em;margin:0;font-variant-numeric:tabular-nums;color:var(--ok)}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.85rem}
+.chip{font-size:.68rem;padding:.28rem .55rem;border-radius:999px;border:1px solid var(--border);color:var(--muted);background:rgba(255,255,255,.03)}
+.chip.ok{color:var(--ok);border-color:rgba(94,233,160,.25);background:var(--ok-dim)}
+.chip.gold{color:var(--gold);border-color:rgba(232,213,163,.25)}
+.pipe{font-family:ui-monospace,Menlo,monospace;font-size:.72rem;color:var(--faint);margin-top:.9rem;line-height:1.55}
+.pipe strong{color:var(--muted);font-weight:500}
+.card{border:1px solid var(--border);border-radius:16px;background:var(--elev);padding:1.15rem 1.1rem;margin-bottom:1rem}
+.card h2{margin:0 0 .35rem;font-size:1rem;font-weight:600}
+.card p.lead{margin:0 0 1rem;font-size:.88rem;color:var(--muted)}
+label{display:block;font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);margin-bottom:.35rem}
+.field{margin-bottom:.85rem}
+input,select{width:100%;height:46px;border-radius:11px;border:1px solid var(--border2);background:var(--subtle);color:var(--fg);padding:0 .9rem;font-size:.95rem;outline:none}
+input:focus,select:focus{border-color:rgba(94,233,160,.45);box-shadow:0 0 0 3px rgba(94,233,160,.12)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+@media(max-width:380px){.row2{grid-template-columns:1fr}}
+.seg{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.9rem}
+.seg button{height:34px;padding:0 .75rem;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:.78rem;font-weight:600}
+.seg button.on{background:rgba(94,233,160,.12);border-color:rgba(94,233,160,.35);color:var(--ok)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;width:100%;height:48px;border-radius:12px;font-weight:600;font-size:.92rem;border:none}
+.btn-primary{background:linear-gradient(180deg,#6ef0ae,#3bc87a);color:#062214;box-shadow:0 10px 28px rgba(94,233,160,.22)}
+.btn-secondary{background:transparent;border:1px solid var(--border2);color:var(--fg);margin-top:.55rem}
+.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted);height:40px;font-size:.82rem;margin-top:.45rem}
+.toast{position:fixed;left:50%;bottom:calc(var(--safe-b)+1.2rem);transform:translateX(-50%) translateY(120%);max-width:min(360px,92vw);padding:.75rem 1rem;border-radius:12px;background:#1a1a1f;border:1px solid var(--border);color:var(--fg);font-size:.85rem;z-index:50;opacity:0;transition:all .35s;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.ok{border-color:rgba(94,233,160,.35)}.toast.err{border-color:rgba(255,122,122,.4)}
+.agree{border:1px solid var(--border);border-radius:12px;padding:.85rem .9rem;margin-bottom:.55rem;background:var(--elev2)}
+.agree .top{display:flex;justify-content:space-between;gap:.6rem;align-items:flex-start}
+.agree .amt{font-weight:600;font-variant-numeric:tabular-nums;color:var(--ok)}
+.agree .meta{font-size:.75rem;color:var(--faint);margin-top:.2rem}
+.badge{font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:.2rem .45rem;border-radius:999px;border:1px solid var(--border);color:var(--muted)}
+.badge.active{color:var(--ok);border-color:rgba(94,233,160,.3);background:var(--ok-dim)}
+.badge.pending{color:var(--warn);border-color:rgba(240,198,116,.3)}
+.steps{margin:0;padding-left:1.15rem;color:var(--muted);font-size:.86rem}.steps li{margin:.35rem 0}
+.empty{font-size:.88rem;color:var(--faint);padding:.4rem 0}
+.consent{border:1px dashed rgba(94,233,160,.35);border-radius:14px;padding:1rem;background:rgba(94,233,160,.05);margin-top:.75rem;display:none}
+.consent.show{display:block}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><div class="mark">IN</div><div><h1>Collect · PayTo</h1><p class="sub">Fund the pool from customers</p></div></div>
+    <div class="nav"><a href="/">Home</a><a href="/vault">Vault</a></div>
+  </header>
+  <section class="hero">
+    <div class="label">Endless money pool</div>
+    <p class="balance" id="poolBal">$0.00</p>
+    <div class="chips">
+      <span class="chip ok">● Collect rail</span>
+      <span class="chip gold">No float top-up</span>
+      <span class="chip">PayTo · NPP</span>
+      <span class="chip">Sandbox ready</span>
+    </div>
+    <div class="pipe"><strong>Customer bank</strong> → PayTo consent → Collect → <strong>pool credits</strong><br>Then vault → CommBank — funded by revenue, not your float.</div>
+  </section>
+  <section class="card">
+    <h2>Create PayTo agreement</h2>
+    <p class="lead">Customer authorises a one-off or recurring debit from their AU bank. On success the pool is credited. Live Zepto/Monoova/Azupay keys swap in later — sandbox works now.</p>
+    <div class="seg" id="freqSeg">
+      <button type="button" class="on" data-freq="oneoff">One-off</button>
+      <button type="button" data-freq="weekly">Weekly</button>
+      <button type="button" data-freq="monthly">Monthly</button>
+    </div>
+    <div class="field"><label for="payerName">Payer name</label><input id="payerName" placeholder="Customer full name" autocomplete="off"/></div>
+    <div class="field"><label for="payerEmail">Payer email</label><input id="payerEmail" type="email" placeholder="customer@email.com" autocomplete="off"/></div>
+    <div class="row2">
+      <div class="field"><label for="amount">Amount (AUD)</label><input id="amount" type="number" min="1" step="0.01" placeholder="49.00"/></div>
+      <div class="field"><label for="appSrc">From app</label>
+        <select id="appSrc">
+          <option value="ledgerlite">LedgerLite</option>
+          <option value="shelfd">ShelfDigital</option>
+          <option value="linkgrove">LinkGrove</option>
+          <option value="pulseletter">PulseLetter</option>
+          <option value="skillstack">SkillStack</option>
+          <option value="yieldpaper">YieldPaper</option>
+          <option value="printaether">PrintAether</option>
+          <option value="framevault">FrameVault</option>
+          <option value="adnimbus">AdNimbus</option>
+          <option value="apihive">ApiHive</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="field"><label for="desc">Description</label><input id="desc" maxlength="40" value="Life Maker subscription"/></div>
+    <button class="btn btn-primary" id="btnCreate" type="button">Create agreement · request consent</button>
+    <button class="btn btn-secondary" id="btnQuick" type="button">Quick demo: $49 one-off</button>
+  </section>
+  <section class="card consent" id="consentPanel">
+    <h2>Simulate customer bank consent</h2>
+    <p class="lead" id="consentLead">Customer opens their banking app and approves the PayTo agreement.</p>
+    <ol class="steps">
+      <li>Push agreement to payer bank (sandbox: instant)</li>
+      <li>Payer approves in CommBank / NAB / ANZ / Westpac app</li>
+      <li>NPP PayTo debits payer → credits Life Maker</li>
+      <li>Pool increases — withdraw via Vault</li>
+    </ol>
+    <button class="btn btn-primary" id="btnApprove" type="button">Approve & collect (sandbox)</button>
+    <button class="btn btn-ghost" id="btnReject" type="button">Reject agreement</button>
+  </section>
+  <section class="card">
+    <h2>Active agreements</h2>
+    <div id="agreeList"><p class="empty">No agreements yet — create one above.</p></div>
+  </section>
+  <section class="card">
+    <h2>Collection history</h2>
+    <div id="histList"><p class="empty">Collections appear here and credit the pool.</p></div>
+    <a class="btn btn-secondary" href="/vault" style="text-decoration:none;margin-top:.75rem;display:flex">Open vault to withdraw</a>
+  </section>
+  <p style="text-align:center;font-size:.75rem;color:var(--faint);margin-top:1.5rem">Sandbox · no real bank debit · live PayTo via Zepto / Monoova / Azupay when keys are set</p>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+(function(){
+const POOL_KEY="lm-vault-secure-v2-pool-backup",LM_KEY="life-maker-v1",COLLECT_KEY="lm-collect-v1";
+const money=n=>new Intl.NumberFormat("en-AU",{style:"currency",currency:"AUD"}).format(n);
+function loadPool(){try{const bak=localStorage.getItem(POOL_KEY);if(bak){const b=JSON.parse(bak);if(typeof b.poolBalance==="number")return b.poolBalance}const lm=localStorage.getItem(LM_KEY);if(lm){const p=JSON.parse(lm);if(typeof p?.state?.poolBalance==="number")return p.state.poolBalance;if(typeof p?.poolBalance==="number")return p.poolBalance}}catch{}return 42840}
+function savePool(n){const v=Math.round(n*100)/100;localStorage.setItem(POOL_KEY,JSON.stringify({poolBalance:v,updatedAt:Date.now()}));try{const lm=localStorage.getItem(LM_KEY);if(lm){const p=JSON.parse(lm);if(p.state)p.state.poolBalance=v;else p.poolBalance=v;localStorage.setItem(LM_KEY,JSON.stringify(p))}}catch{}return v}
+function loadState(){try{const raw=localStorage.getItem(COLLECT_KEY);if(raw)return JSON.parse(raw)}catch{}return{agreements:[],collections:[],pendingId:null}}
+function saveState(s){localStorage.setItem(COLLECT_KEY,JSON.stringify(s))}
+let state=loadState(),freq="oneoff",pool=loadPool();
+const $=id=>document.getElementById(id),toastEl=$("toast");
+function toast(msg,type){toastEl.textContent=msg;toastEl.className="toast show "+(type||"ok");clearTimeout(toast._t);toast._t=setTimeout(()=>{toastEl.className="toast"},3200)}
+function renderPool(){$("poolBal").textContent=money(pool)}
+function esc(s){return String(s).replace(/&/g,"&").replace(/</g,"<").replace(/>/g,">").replace(/"/g,""")}
+document.querySelectorAll("#freqSeg button").forEach(btn=>{btn.addEventListener("click",()=>{document.querySelectorAll("#freqSeg button").forEach(b=>b.classList.remove("on"));btn.classList.add("on");freq=btn.dataset.freq})});
+function renderAgreements(){const list=$("agreeList");if(!state.agreements.length){list.innerHTML='<p class="empty">No agreements yet — create one above.</p>';return}
+list.innerHTML=state.agreements.slice().reverse().map(a=>{const badge=a.status==="active"?"active":a.status==="pending"?"pending":"done";return'<div class="agree"><div class="top"><div><div class="amt">'+money(a.amount)+'</div><div class="meta">'+esc(a.payerName)+' · '+a.freq+' · '+a.appSrc+'</div></div><span class="badge '+badge+'">'+a.status+'</span></div>'+(a.status==="pending"?'<button class="btn btn-ghost" data-resume="'+a.id+'" type="button">Resume consent</button>':a.status==="active"&&a.freq!=="oneoff"?'<button class="btn btn-ghost" data-collect="'+a.id+'" type="button">Collect this period</button>':'')+'</div>'}).join("");
+list.querySelectorAll("[data-resume]").forEach(btn=>btn.addEventListener("click",()=>openConsent(btn.getAttribute("data-resume"))));
+list.querySelectorAll("[data-collect]").forEach(btn=>btn.addEventListener("click",()=>collectNow(btn.getAttribute("data-collect"))))}
+function renderHistory(){const list=$("histList");if(!state.collections.length){list.innerHTML='<p class="empty">Collections appear here and credit the pool.</p>';return}
+list.innerHTML=state.collections.slice(0,20).map(c=>'<div class="agree"><div class="top"><div><div class="amt">+'+money(c.amount)+'</div><div class="meta">'+esc(c.payerName)+' · '+c.appSrc+' · '+new Date(c.at).toLocaleString("en-AU")+'</div></div><span class="badge active">settled</span></div></div>').join("")}
+function openConsent(id){const a=state.agreements.find(x=>x.id===id);if(!a)return;state.pendingId=id;saveState(state);$("consentLead").textContent=a.payerName+' will authorise '+money(a.amount)+' ('+a.freq+') for "'+a.desc+'".';$("consentPanel").classList.add("show");$("consentPanel").scrollIntoView({behavior:"smooth",block:"nearest"})}
+function createAgreement(opts){const amount=Number(opts.amount);if(!(amount>=1)){toast("Amount must be at least $1","err");return}if(!opts.payerName.trim()){toast("Payer name required","err");return}
+const id="payto_"+Date.now().toString(36);state.agreements.push({id,payerName:opts.payerName.trim(),payerEmail:(opts.payerEmail||"").trim(),amount,freq:opts.freq||freq,appSrc:opts.appSrc||"other",desc:(opts.desc||"Life Maker").slice(0,40),status:"pending",createdAt:Date.now()});saveState(state);renderAgreements();openConsent(id);toast("PayTo agreement created — await consent")}
+function collectNow(id){const a=state.agreements.find(x=>x.id===id);if(!a)return;toast("Debiting via sandbox PayTo…");setTimeout(()=>{pool=savePool(pool+a.amount);renderPool();state.collections.unshift({id:"col_"+Date.now().toString(36),agreementId:a.id,amount:a.amount,payerName:a.payerName,appSrc:a.appSrc,at:Date.now()});a.status=a.freq==="oneoff"?"completed":"active";a.lastCollectedAt=Date.now();state.pendingId=null;saveState(state);renderAgreements();renderHistory();$("consentPanel").classList.remove("show");toast("Collected "+money(a.amount)+" · pool credited","ok")},900)}
+$("btnCreate").addEventListener("click",()=>createAgreement({payerName:$("payerName").value,payerEmail:$("payerEmail").value,amount:$("amount").value,freq,appSrc:$("appSrc").value,desc:$("desc").value}));
+$("btnQuick").addEventListener("click",()=>{freq="oneoff";document.querySelectorAll("#freqSeg button").forEach(b=>b.classList.toggle("on",b.dataset.freq==="oneoff"));createAgreement({payerName:"Emily Demo Payer",payerEmail:"demo@lifemaker.au",amount:49,freq:"oneoff",appSrc:"apihive",desc:"ApiHive monthly"})});
+$("btnApprove").addEventListener("click",()=>{if(!state.pendingId){toast("No pending agreement","err");return}collectNow(state.pendingId)});
+$("btnReject").addEventListener("click",()=>{const a=state.agreements.find(x=>x.id===state.pendingId);if(a){a.status="rejected";state.pendingId=null;saveState(state);renderAgreements()}$("consentPanel").classList.remove("show");toast("Agreement rejected","err")});
+renderPool();renderAgreements();renderHistory();
+})();
+</script>
+</body>
+</html>
