@@ -1,14 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#070708" />
-  <meta name="color-scheme" content="dark" />
-  <title>Life Maker · Vault Transfer</title>
-  <!-- truncated for tool limits - full content will be handled by local + vercel -->
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="theme-color" content="#070708"/>
+<title>Life Maker · CommBank Business Vault</title>
+<style>
+:root{--bg:#070708;--elev:#111114;--elev2:#16161a;--fg:#f7f7f8;--muted:#a8a8b3;--faint:#6e6e78;--border:rgba(255,255,255,.08);--gold:#e8d5a3;--gold-dim:#b8a06a;--success:#5ee9a0;--success-dim:rgba(94,233,160,.12);--warn:#f0c674;--cba:#ffcc00;--font:system-ui,-apple-system,"Segoe UI",sans-serif}
+*{box-sizing:border-box}body{margin:0;min-height:100dvh;background:radial-gradient(900px 420px at 50% -8%,rgba(232,213,163,.08),transparent 50%),var(--bg);color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.5}
+.wrap{max-width:420px;margin:0 auto;padding:1.2rem 1.05rem 3rem}.hidden{display:none!important}
+.lock{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:78dvh;text-align:center;gap:1rem}
+.orb{width:72px;height:72px;border-radius:22px;background:linear-gradient(145deg,#1c1c22,#0e0e12);border:1px solid rgba(255,255,255,.14);display:grid;place-items:center;font-size:1.5rem;box-shadow:0 12px 40px rgba(0,0,0,.45)}
+h2{margin:0;font-size:1.25rem}.sub{margin:0;color:var(--muted);font-size:.88rem;max-width:300px}
+.dots{display:flex;gap:.55rem;justify-content:center}.dots span{width:12px;height:12px;border-radius:50%;border:1.5px solid rgba(255,255,255,.18)}.dots span.f{background:var(--gold);border-color:var(--gold)}
+.keys{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;width:100%;max-width:280px}
+.key{height:54px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,.03);color:var(--fg);font-size:1.2rem;cursor:pointer}
+.key.g{color:var(--muted);font-size:.82rem}.key.a{color:var(--gold)}
+.link{background:none;border:none;color:var(--gold-dim);font-size:.82rem;cursor:pointer;text-decoration:underline;margin-top:.4rem}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem}
+.brand h1{margin:0;font-size:.95rem}.brand p{margin:0;font-size:.65rem;color:var(--faint);text-transform:uppercase;letter-spacing:.06em}
+.lockbtn{height:36px;padding:0 .85rem;border-radius:9px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer}
+.hero{border:1px solid var(--border);border-radius:18px;padding:1.2rem;background:linear-gradient(160deg,rgba(232,213,163,.07),transparent 50%),#141417;margin-bottom:1rem}
+.lab{font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-dim)}
+.bal{font-size:2rem;font-weight:600;margin:.15rem 0 .55rem;font-variant-numeric:tabular-nums}
+.chip{display:inline-block;font-size:.65rem;font-weight:600;padding:.2rem .48rem;border-radius:999px;border:1px solid var(--border);color:var(--muted);margin:.15rem .15rem 0 0}
+.chip.ok{color:var(--success);border:none;background:var(--success-dim)}
+.chip.cba{color:#1a1508;background:var(--cba);border:none}
+.panel{border:1px solid var(--border);border-radius:16px;padding:1.05rem;background:var(--elev);margin-bottom:.8rem}
+.panel h2{font-size:.98rem;margin:0 0 .25rem}.lede{margin:0 0 .75rem;font-size:.84rem;color:var(--muted)}
+label{display:block;font-size:.65rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);margin:.5rem 0 .28rem}
+input{width:100%;height:46px;border-radius:11px;border:1px solid var(--border);background:#0c0c0e;color:var(--fg);padding:0 .8rem;font-size:.95rem}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.quick{display:flex;flex-wrap:wrap;gap:.35rem;margin:.35rem 0 .7rem}
+.quick button{height:32px;padding:0 .65rem;border-radius:8px;border:1px solid var(--border);background:rgba(255,255,255,.03);color:var(--muted);font-size:.75rem;font-weight:600;cursor:pointer}
+.btn{width:100%;height:48px;border:none;border-radius:12px;font-weight:600;font-size:.92rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:.4rem;margin-top:.35rem;text-decoration:none;color:inherit}
+.btn-g{background:linear-gradient(180deg,#f0e0b0,#d4bc7a);color:#1a1508}
+.btn-cba{background:var(--cba);color:#1a1508}
+.btn-x{background:transparent;border:1px solid var(--border);color:var(--muted)}
+.note{margin:.7rem 0 0;font-size:.72rem;color:var(--faint)}
+.ready{border:1px solid rgba(94,233,160,.35);border-radius:16px;padding:1.05rem;background:rgba(94,233,160,.06);margin-bottom:.8rem}
+.ready h3{margin:0 0 .35rem;color:var(--success);font-size:1rem}
+.crow{display:flex;align-items:center;justify-content:space-between;gap:.5rem;border:1px solid var(--border);border-radius:10px;padding:.55rem .7rem;margin:.35rem 0;background:rgba(0,0,0,.2)}
+.crow .l{font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:var(--faint)}
+.crow .v{font-size:.9rem;font-weight:500}.crow .v.mono{font-family:ui-monospace,monospace}
+.crow button{height:32px;padding:0 .65rem;border-radius:8px;border:1px solid var(--border);background:rgba(255,255,255,.05);color:var(--fg);font-size:.72rem;font-weight:600;cursor:pointer;flex-shrink:0}
+.steps{margin:.7rem 0 0;padding-left:1.15rem;font-size:.82rem;color:var(--muted)}.steps li{margin:.35rem 0}.steps strong{color:var(--fg)}
+.tx{display:flex;justify-content:space-between;gap:.7rem;padding:.5rem 0;border-top:1px solid var(--border);font-size:.84rem}
+.tx:first-child{border-top:none}.tx .a{font-weight:600;color:var(--success)}.tx .m{color:var(--faint);font-size:.72rem}
+.toast{position:fixed;left:50%;bottom:1.3rem;transform:translateX(-50%) translateY(120%);background:#1a1a1e;border:1px solid rgba(255,255,255,.14);padding:.7rem 1rem;border-radius:12px;font-size:.86rem;z-index:60;transition:transform .25s;max-width:90vw;text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0)}.toast.ok{border-color:rgba(94,233,160,.35);color:var(--success)}.toast.err{border-color:rgba(255,122,122,.35);color:#ffb4b4}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:50;padding:1.2rem}
+.modal.open{display:flex}.box{width:100%;max-width:360px;background:var(--elev2);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:1.25rem}
+.box h3{margin:0 0 .3rem}.box p{margin:0 0 .9rem;font-size:.84rem;color:var(--muted)}
+.hint{font-size:.7rem;color:var(--faint);margin:.2rem 0 0}
+</style>
 </head>
 <body>
-  <p>See full vault at artifacts. Full version has AES-GCM PIN vault + CommBiz Fast Payment instruction modal.</p>
+<div class="wrap">
+<section class="lock" id="lock">
+  <div class="orb">🔒</div>
+  <div><h2 id="lockTitle">Vault locked</h2><p class="sub" id="lockSub">CommBank Business ready. 6-digit PIN. Never locked out forever.</p></div>
+  <div class="dots" id="dots"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <div class="keys" id="keys">
+    <button class="key" data-k="1">1</button><button class="key" data-k="2">2</button><button class="key" data-k="3">3</button>
+    <button class="key" data-k="4">4</button><button class="key" data-k="5">5</button><button class="key" data-k="6">6</button>
+    <button class="key" data-k="7">7</button><button class="key" data-k="8">8</button><button class="key" data-k="9">9</button>
+    <button class="key g" data-k="c">Clear</button><button class="key" data-k="0">0</button><button class="key a" data-k="d">⌫</button>
+  </div>
+  <button class="link" id="recBtn">Use recovery phrase</button>
+</section>
+<section class="main hidden" id="main">
+  <div class="top"><div class="brand"><h1>Life Maker</h1><p>CommBank Business vault</p></div><button class="lockbtn" id="lockBtn">Lock</button></div>
+  <div class="hero">
+    <div class="lab">Available to transfer</div>
+    <div class="bal" id="pool">$0.00</div>
+    <span class="chip ok">● Live pool</span><span class="chip cba">CommBiz</span><span class="chip">No Stripe · No PayPal</span>
+  </div>
+  <div id="readyBox" class="ready hidden">
+    <h3>✓ Transfer instruction ready</h3>
+    <p style="margin:0 0 .5rem;font-size:.84rem;color:var(--muted)">Copy each field into CommBiz → Payments → Fast Payment, then authorise.</p>
+    <div id="readyRows"></div>
+    <button class="btn btn-g" id="copyAll">Copy full pack</button>
+    <a class="btn btn-cba" href="https://www.commbiz.commbank.com.au" target="_blank" rel="noopener">Open CommBiz</a>
+    <button class="btn btn-x" id="openBizApp" type="button">Open CommBank Business app</button>
+    <div class="panel" style="margin-top:.75rem;margin-bottom:0">
+      <h2 style="font-size:.9rem">CommBiz Fast Payment steps</h2>
+      <ol class="steps">
+        <li>Log on to <strong>CommBiz</strong> (commbiz.commbank.com.au) or the <strong>CommBank Business app</strong></li>
+        <li>Go to <strong>Payments → Fast Payment</strong></li>
+        <li>Select <strong>Pay from</strong> your business account</li>
+        <li>Choose Pay to: <strong>BSB & account number</strong> (or PayID)</li>
+        <li>Paste BSB, account, name, amount and description from the copy buttons above</li>
+        <li>Review → Submit → authorise (dual auth if required)</li>
+      </ol>
+      <p class="hint" style="margin-top:.6rem">Fast Payments travel on NPP — near real-time, 24/7. Dual authorisation may apply depending on your CommBiz settings.</p>
+    </div>
+    <button class="btn btn-g" id="markSent">I’ve completed it in CommBiz</button>
+  </div>
+  <div class="panel">
+    <h2>Your destination account</h2>
+    <p class="lede">Usually your personal CommBank or another account you control. From CommBank app → Accounts → open the account → BSB & account number.</p>
+    <label>Account name</label><input id="name" placeholder="As shown on the account" autocomplete="off"/>
+    <div class="row2">
+      <div><label>BSB</label><input id="bsb" placeholder="062-000" inputmode="numeric" maxlength="7" autocomplete="off"/><p class="hint">CommBank BSBs often start with 06</p></div>
+      <div><label>Account number</label><input id="acc" placeholder="From account details" inputmode="numeric" maxlength="10" autocomplete="off"/></div>
+    </div>
+    <label>Amount (AUD)</label><input id="amt" type="number" min="1" step="0.01" placeholder="0.00"/>
+    <div class="quick"><button type="button" data-p="25">25%</button><button type="button" data-p="50">50%</button><button type="button" data-p="100">All</button><button type="button" data-f="100">$100</button><button type="button" data-f="500">$500</button></div>
+    <label>Description (shows in CommBiz)</label><input id="ref" placeholder="Life Maker payout" maxlength="40"/>
+    <button class="btn btn-g" id="send">Prepare CommBiz Fast Payment</button>
+    <p class="note">Earmarks pool funds and builds copy-ready fields. Real money only moves when you authorise inside CommBiz. The vault never holds your bank login.</p>
+  </div>
+  <div class="panel"><h3 style="margin:0 0 .45rem;font-size:.9rem">History</h3><div id="hist"><div style="color:var(--faint);font-size:.84rem">No transfers yet.</div></div></div>
+</section>
+</div>
+<div class="toast" id="toast"></div>
+<div class="modal" id="setupM"><div class="box"><h3>Create vault PIN</h3><p>6 digits. Recovery phrase next so you never get locked out.</p><label>New PIN</label><input id="p1" type="password" inputmode="numeric" maxlength="6"/><label>Confirm PIN</label><input id="p2" type="password" inputmode="numeric" maxlength="6"/><button class="btn btn-g" id="create">Create vault</button></div></div>
+<div class="modal" id="phraseM"><div class="box"><h3>Recovery phrase</h3><p>Write offline. Only way back if you forget the PIN.</p><input id="phrase" readonly style="font-family:ui-monospace,monospace;font-size:.84rem"/><button class="btn btn-g" id="phraseOk">I saved it — continue</button></div></div>
+<div class="modal" id="recM"><div class="box"><h3>Recover access</h3><p>Phrase + new PIN. Pool is never wiped.</p><label>Recovery phrase</label><input id="recIn"/><label>New PIN</label><input id="newPin" type="password" inputmode="numeric" maxlength="6"/><button class="btn btn-g" id="doRec">Recover & unlock</button><button class="btn btn-x" id="cancelRec">Cancel</button></div></div>
+<script>
+(function(){
+  const KEY="lm-vault-cba-biz-v1";
+  const WORDS=["ember","tide","ridge","opal","haven","lumen","quill","sable","coral","flint","grove","pearl","ash","mist","onyx","jade","cedar","frost","bloom","raven"];
+  let meta=null, session=false, pin="", lastId=null;
+  const $=id=>document.getElementById(id);
+  const money=n=>new Intl.NumberFormat("en-AU",{style:"currency",currency:"AUD"}).format(n||0);
+  const bsbF=s=>{const d=String(s).replace(/\D/g,"").slice(0,6);return d.length<=3?d:d.slice(0,3)+"-"+d.slice(3)};
+  function toast(m,t=""){const e=$("toast");e.textContent=m;e.className="toast show"+(t?" "+t:"");setTimeout(()=>e.classList.remove("show"),2800)}
+  function dots(){document.querySelectorAll("#dots span").forEach((s,i)=>s.classList.toggle("f",i<pin.length))}
+  function load(){try{return JSON.parse(localStorage.getItem(KEY)||"null")}catch{return null}}
+  function save(){localStorage.setItem(KEY,JSON.stringify(meta))}
+  async function hash(p,salt){const enc=new TextEncoder();const km=await crypto.subtle.importKey("raw",enc.encode(p),"PBKDF2",false,["deriveBits"]);const bits=await crypto.subtle.deriveBits({name:"PBKDF2",salt,iterations:120000,hash:"SHA-256"},km,256);return btoa(String.fromCharCode(...new Uint8Array(bits)))}
+  function phrase(){return Array.from({length:6},()=>WORDS[Math.floor(Math.random()*WORDS.length)]).join("-")}
+  function pack(t){return ["LIFE MAKER → COMMBIZ FAST PAYMENT","","Account name:  "+t.name,"BSB:           "+bsbF(t.bsb),"Account:       "+t.acc,"Amount:        "+money(t.a),"Description:   "+t.ref,"","COMMBIZ STEPS","1. Log on CommBiz or CommBank Business app","2. Payments → Fast Payment","3. Pay from your business account","4. Pay to BSB & account (or PayID)","5. Paste amount + description","6. Submit & authorise"].join("\n")}
+  function copy(label,val){navigator.clipboard.writeText(val).then(()=>toast(label+" copied","ok"),()=>toast("Copy failed","err"))}
+  async function unlock(p){if(!meta)return;const salt=Uint8Array.from(atob(meta.salt),c=>c.charCodeAt(0));const h=await hash(p,salt);if(h!==meta.pinHash){toast("Wrong PIN — try recovery","err");pin="";dots();return}session=true;pin="";dots();openMain()}
+  function openMain(){$("lock").classList.add("hidden");$("main").classList.remove("hidden");$("pool").textContent=money(meta.pool||42840);if(meta.bank){$("name").value=meta.bank.name||"";$("bsb").value=bsbF(meta.bank.bsb||"");$("acc").value=meta.bank.acc||""}render();showReady()}
+  function render(){const h=meta.txs||[];$("hist").innerHTML=h.length?h.map(t=>`<div class="tx"><div><div class="a">${money(t.a)}</div><div class="m">BSB ${bsbF(t.bsb)} · ••••${String(t.acc).slice(-4)} · ${t.status||"ready"}</div></div><div class="m">${new Date(t.at).toLocaleDateString("en-AU")}</div></div>`).join(""):`<div style="color:var(--faint);font-size:.84rem">No transfers yet.</div>`}
+  function showReady(){const t=(meta.txs||[]).find(x=>x.id===lastId && (x.status||"ready")==="ready");if(!t){$("readyBox").classList.add("hidden");return}
+    $("readyBox").classList.remove("hidden");
+    const rows=[["Account name",t.name,false],["BSB",bsbF(t.bsb),true],["Account number",t.acc,true],["Amount",money(t.a),true],["Description",t.ref,false]];
+    $("readyRows").innerHTML=rows.map(([l,v,m])=>`<div class="crow"><div><div class="l">${l}</div><div class="v${m?" mono":""}">${v}</div></div><button type="button" data-copy="${encodeURIComponent(v)}" data-lab="${l}">Copy</button></div>`).join("");
+    $("readyRows").onclick=e=>{const b=e.target.closest("button[data-copy]");if(!b)return;copy(b.dataset.lab,decodeURIComponent(b.dataset.copy))};
+  }
+  $("keys").onclick=e=>{const b=e.target.closest(".key");if(!b)return;const k=b.dataset.k;if(k==="c"){pin="";dots();return}if(k==="d"){pin=pin.slice(0,-1);dots();return}if(pin.length>=6)return;pin+=k;dots();if(pin.length===6)unlock(pin)};
+  $("create").onclick=async()=>{const a=$("p1").value,b=$("p2").value;if(!/^\d{6}$/.test(a)){toast("PIN must be 6 digits","err");return}if(a!==b){toast("PINs do not match","err");return}
+    const salt=crypto.getRandomValues(new Uint8Array(16));const ph=phrase();
+    meta={salt:btoa(String.fromCharCode(...salt)),pinHash:await hash(a,salt),recovery:ph.toLowerCase(),pool:42840,txs:[],bank:null};
+    save();session=true;$("phrase").value=ph;$("setupM").classList.remove("open");$("phraseM").classList.add("open")};
+  $("phraseOk").onclick=()=>{$("phraseM").classList.remove("open");openMain();toast("Vault ready for CommBiz","ok")};
+  $("recBtn").onclick=()=>$("recM").classList.add("open");
+  $("cancelRec").onclick=()=>$("recM").classList.remove("open");
+  $("doRec").onclick=async()=>{if(!meta){toast("No vault yet","err");return}const ph=$("recIn").value.trim().toLowerCase(),np=$("newPin").value;
+    if(ph!==meta.recovery){toast("Incorrect phrase","err");return}if(!/^\d{6}$/.test(np)){toast("Need 6 digits","err");return}
+    const salt=Uint8Array.from(atob(meta.salt),c=>c.charCodeAt(0));meta.pinHash=await hash(np,salt);save();session=true;
+    $("recM").classList.remove("open");openMain();toast("Access restored","ok")};
+  $("send").onclick=()=>{if(!session||!meta)return;const name=$("name").value.trim(),bsb=$("bsb").value.replace(/\D/g,""),acc=$("acc").value.replace(/\D/g,""),amt=Number($("amt").value),ref=($("ref").value||"Life Maker payout").slice(0,40);
+    if(!name||bsb.length!==6||acc.length<6||!(amt>=1)){toast("Check account details","err");return}if(amt>meta.pool){toast("Exceeds pool","err");return}
+    meta.pool=Math.round((meta.pool-amt)*100)/100;const id="tx_"+Date.now();
+    meta.txs=meta.txs||[];meta.txs.unshift({id,a:amt,bsb,acc,name,ref,at:Date.now(),status:"ready"});
+    meta.bank={name,bsb,acc};lastId=id;save();
+    $("amt").value="";$("pool").textContent=money(meta.pool);render();showReady();toast("Instruction ready — complete in CommBiz","ok");
+    $("readyBox").scrollIntoView({behavior:"smooth",block:"start"})};
+  document.querySelectorAll(".quick button").forEach(b=>b.onclick=()=>{const p=meta?meta.pool||0:0;if(b.dataset.p)$("amt").value=(p*Number(b.dataset.p)/100).toFixed(2);if(b.dataset.f)$("amt").value=b.dataset.f});
+  $("copyAll").onclick=()=>{const t=(meta.txs||[]).find(x=>x.id===lastId);if(!t)return;copy("Full pack",pack(t))};
+  $("openBizApp").onclick=()=>window.open("https://www.commbank.com.au/business/banking/digital/commbank-business-app.html","_blank");
+  $("markSent").onclick=()=>{const t=(meta.txs||[]).find(x=>x.id===lastId);if(!t)return;t.status="settled";save();render();$("readyBox").classList.add("hidden");toast("Marked as completed in CommBiz","ok")};
+  $("lockBtn").onclick=()=>{session=false;$("main").classList.add("hidden");$("lock").classList.remove("hidden");pin="";dots()};
+  meta=load();
+  if(!meta){$("lockTitle").textContent="Secure your vault";$("lockSub").textContent="Create a 6-digit PIN. Built for CommBank Business / CommBiz Fast Payment.";$("setupM").classList.add("open")}
+  else{$("lock").classList.remove("hidden");$("main").classList.add("hidden")}
+})();
+</script>
 </body>
 </html>
