@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#070708" />
+  <meta name="color-scheme" content="dark" />
+  <title>Life Maker · Vault Transfer</title>
+  <link rel="stylesheet" href="/vault.css"/>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="app">
+    <section class="lock-screen" id="lockScreen">
+      <div class="vault-orb" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><circle cx="12" cy="16" r="1.2" fill="currentColor" stroke="none"/></svg>
+      </div>
+      <div>
+        <h2 class="lock-title" id="lockTitle">Vault locked</h2>
+        <p class="lock-sub" id="lockSub">Enter your PIN to transfer funds. Gremlins stay out. You never get locked out forever.</p>
+      </div>
+      <div class="pin-dots" id="pinDots" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="keypad" id="keypad">
+        <button type="button" class="key" data-k="1">1</button>
+        <button type="button" class="key" data-k="2">2</button>
+        <button type="button" class="key" data-k="3">3</button>
+        <button type="button" class="key" data-k="4">4</button>
+        <button type="button" class="key" data-k="5">5</button>
+        <button type="button" class="key" data-k="6">6</button>
+        <button type="button" class="key" data-k="7">7</button>
+        <button type="button" class="key" data-k="8">8</button>
+        <button type="button" class="key" data-k="9">9</button>
+        <button type="button" class="key ghost" data-k="clear">Clear</button>
+        <button type="button" class="key" data-k="0">0</button>
+        <button type="button" class="key action" data-k="del">⌫</button>
+      </div>
+      <div class="lock-links">
+        <button type="button" class="link-btn" id="recoveryBtn">Use recovery phrase</button>
+        <button type="button" class="link-btn" id="resetVaultBtn" style="display:none">Emergency reset (keeps pool, clears bank)</button>
+      </div>
+    </section>
+    <section class="main hidden" id="mainScreen">
+      <div class="topbar">
+        <div class="brand">
+          <div class="brand-mark">
+            <svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="4"/></svg>
+          </div>
+          <div>
+            <h1>Life Maker</h1>
+            <p>Private vault</p>
+          </div>
+        </div>
+        <button type="button" class="lock-now" id="lockNowBtn" title="Lock vault">Lock</button>
+      </div>
+      <div class="hero">
+        <div class="hero-label">Available to transfer</div>
+        <p class="hero-balance" id="poolBalance">$0.00</p>
+        <div class="hero-meta">
+          <span class="chip live">● Live pool</span>
+          <span class="chip secure">Encrypted vault</span>
+          <span class="chip">No Stripe · No PayPal</span>
+        </div>
+      </div>
+      <div class="panel">
+        <h2>Transfer to your bank</h2>
+        <p class="lede">Direct BSB rails. Details stay encrypted on this device. Only your PIN opens the vault.</p>
+        <div class="shield-row">
+          <span class="chip secure">AES vault</span>
+          <span class="chip secure">Local only</span>
+          <span class="chip secure">Never locked out</span>
+        </div>
+        <form id="transferForm" autocomplete="off">
+          <div class="field"><label for="accountName">Account name</label><input id="accountName" name="accountName" type="text" required maxlength="80" placeholder="Name on the account" autocomplete="off" /></div>
+          <div class="row-2">
+            <div class="field"><label for="bsb">BSB</label><input id="bsb" name="bsb" type="text" required inputmode="numeric" placeholder="000-000" maxlength="7" autocomplete="off" /></div>
+            <div class="field"><label for="accountNumber">Account number</label><input id="accountNumber" name="accountNumber" type="text" required inputmode="numeric" placeholder="12345678" maxlength="10" autocomplete="off" /></div>
+          </div>
+          <div class="field"><label for="amount">Amount (AUD)</label><input id="amount" name="amount" type="number" required min="1" step="0.01" placeholder="0.00" /></div>
+          <div class="quick">
+            <button type="button" data-pct="25">25%</button>
+            <button type="button" data-pct="50">50%</button>
+            <button type="button" data-pct="100">All</button>
+            <button type="button" data-fixed="100">$100</button>
+            <button type="button" data-fixed="500">$500</button>
+          </div>
+          <div class="field"><label for="reference">Reference</label><input id="reference" name="reference" type="text" maxlength="40" placeholder="Life Maker payout" /></div>
+          <button type="submit" class="btn btn-gold" id="submitBtn">Transfer to bank</button>
+          <button type="button" class="btn btn-ghost" id="saveBankBtn">Save encrypted bank details</button>
+        </form>
+        <p class="note">Bank details are encrypted with your PIN before storage. Recovery phrase always restores access.</p>
+      </div>
+      <div class="panel history"><h3>Transfer history</h3><div id="historyList"><div class="empty">No transfers yet.</div></div></div>
+      <div class="panel">
+        <h3 style="margin:0 0 0.5rem;font-size:0.85rem;">Vault settings</h3>
+        <button type="button" class="btn btn-ghost" id="changePinBtn" style="margin-top:0">Change PIN</button>
+        <button type="button" class="btn btn-ghost" id="showRecoveryBtn">Show recovery phrase</button>
+      </div>
+    </section>
+  </div>
+  <div class="modal-backdrop" id="setupModal" role="dialog" aria-modal="true"><div class="modal"><h3>Create your vault PIN</h3><p>6 digits. Write down the recovery phrase next.</p><div class="field"><label for="setupPin">New PIN (6 digits)</label><input id="setupPin" type="password" inputmode="numeric" maxlength="6" placeholder="••••••" /><div class="strength"><i id="pinStrength"></i></div></div><div class="field"><label for="setupPin2">Confirm PIN</label><input id="setupPin2" type="password" inputmode="numeric" maxlength="6" placeholder="••••••" /></div><div class="actions"><button type="button" class="btn btn-gold" id="createVaultBtn">Create vault</button></div></div></div>
+  <div class="modal-backdrop" id="phraseModal" role="dialog" aria-modal="true"><div class="modal"><h3>Your recovery phrase</h3><p>Write this down offline.</p><div class="field"><label>Phrase</label><input id="phraseDisplay" type="text" readonly style="font-family:ui-monospace,monospace;font-size:0.8rem" /></div><div class="actions"><button type="button" class="btn btn-gold" id="phraseConfirmBtn">I saved it — continue</button><button type="button" class="btn btn-ghost" id="copyPhraseBtn">Copy phrase</button></div></div></div>
+  <div class="modal-backdrop" id="recoveryModal" role="dialog" aria-modal="true"><div class="modal"><h3>Recover access</h3><p>Enter recovery phrase and set a new PIN. Pool is never wiped.</p><div class="field"><label for="recoveryInput">Recovery phrase</label><input id="recoveryInput" type="text" autocomplete="off" /></div><div class="field"><label for="newPinAfter">New PIN (6 digits)</label><input id="newPinAfter" type="password" inputmode="numeric" maxlength="6" /></div><div class="actions"><button type="button" class="btn btn-gold" id="doRecoverBtn">Recover & unlock</button><button type="button" class="btn btn-ghost" id="cancelRecoverBtn">Cancel</button></div></div></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="/vault.js"></script>
+</body>
+</html>
