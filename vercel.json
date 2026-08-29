@@ -4,7 +4,8 @@
     { "source": "/collect", "destination": "/collect.html" },
     { "source": "/vault", "destination": "/vault.html" },
     { "source": "/portfolio", "destination": "/portfolio.html" },
-    { "source": "/links", "destination": "/links.html" }
+    { "source": "/links", "destination": "/links.html" },
+    { "source": "/jupiter", "destination": "/jupiter.html" }
   ],
   "headers": [
     {
